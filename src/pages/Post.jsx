@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { getPost, deletePost as appwriteDeletePost, deleteFile, getFilePreview } from "../services/appwrite/postServices"
+import { getPost, deletePost, deleteFile, getFilePreview } from "../services/appwrite/postServices"
 import { Button, Container } from "../components";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
+import { toast } from "sonner";
 
 export default function Post() {
     const [post, setPost] = useState(null);
@@ -23,13 +24,17 @@ export default function Post() {
         } else navigate("/");
     }, [slug, navigate]);
 
-    const deletePost = () => {
-      appwriteDeletePost(post.$id).then((status) => {
+    const handleDeletePost = () => {
+        deletePost(post.$id).then((status) => {
             if (status) {
                 deleteFile(post.featuredImage);
+                toast.success("Post deleted successfully!")
                 navigate("/");
             }
-        });
+        }).catch((error) => (
+            toast.error("Failed to delete post"),
+            console.error(error)
+        ))
     };
 
     return post ? (
@@ -49,7 +54,7 @@ export default function Post() {
                                     Edit
                                 </Button>
                             </Link>
-                            <Button bgColor="bg-red-500" onClick={deletePost}>
+                            <Button bgColor="bg-red-500" onClick={handleDeletePost}>
                                 Delete
                             </Button>
                         </div>

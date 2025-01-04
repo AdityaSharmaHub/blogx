@@ -1,8 +1,8 @@
-import { account, id } from "./appwriteClient"
+import { account, id, query } from "./appwriteClient"
 
-export const createAccount = async ({ email, password }) => {
+export const createAccount = async ({ name, email, password }) => {
     try {
-        const userAccount = await account.create(id.unique(), email, password)
+        const userAccount = await account.create(id.unique(), email, password, name)
         if (userAccount) {
             return await loginUser({ email, password })
         }

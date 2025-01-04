@@ -6,7 +6,7 @@ const bucketId = import.meta.env.VITE_APPWRITE_BUCKET_ID
 
 // Databases operations
 
-export const createPost = async ({title, slug, content, featuredImage, status, userId}) => {
+export const createPost = async ({title, slug, content, featuredImage, status, userId, username}) => {
     try {
         return await databases.createDocument(
             databaseId,
@@ -17,7 +17,8 @@ export const createPost = async ({title, slug, content, featuredImage, status, u
                 content,
                 featuredImage,
                 status,
-                userId
+                userId,
+                username
             }
         )
     } catch (error) {

@@ -75,10 +75,8 @@ const Login = () => {
                 </div>
                 <Button type='submit' className='w-full'>
                     {isLoading ? "Logging in..." : "Login"}
-                    {/* Login */}
                 </Button>
-                <Button className='w-full bg-slate-800 text-white mt-4 hover:bg-slate-700' onClick={loginWithTestUser}>
-                    {/* {isLoadingTestUser ? "Logging in..." : "Login with Test User"} */}
+                <Button className='w-full bg-slate-800 text-slate-400 mt-4 hover:bg-slate-700' onClick={loginWithTestUser}>
                     Login with Test Account
                 </Button>
             </form>

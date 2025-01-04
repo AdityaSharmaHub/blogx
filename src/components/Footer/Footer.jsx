@@ -3,12 +3,7 @@ import { Container } from '..'
 
 const Footer = () => {
   return (
-    // <footer className='bg-slate-950 border-t border-slate-900 p-4'>
-    //   <div className='text-center'>
-    //     <p className='text-slate-300'>&copy; 2024 | All rights reserved</p>
-    //   </div>
-    // </footer> 
-    <footer className="bg-slate-900 text-slate-100 py-6 border-t border-slate-800">
+    <footer className="bg-slate-900 text-slate-100 px-16 py-6 border-t border-slate-800">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center">
           {/* Brand Section */}

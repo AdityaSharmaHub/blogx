@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { Button, Input, RTE, Select } from "..";
 import { createPost, uploadFile, deleteFile, updatePost, getFilePreview } from "../../services/appwrite/postServices"
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {addPost as addPostState, updatePost as updatePostState, deletePost as deletePostState} from "../../features/posts/postsSlice"
 import { toast } from "sonner";
 
@@ -18,11 +18,13 @@ export default function PostForm({ post }) {
     });
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [isCreating, setIsCreating] = useState(false);
     const userData = useSelector((state) => state.auth.userData);
 
     const submit = async (data) => {
         setIsCreating(true);
+        toast("Started creating post...");
         if (post) {
             const file = data.image[0] ? await uploadFile(data.image[0]) : null;
 
@@ -44,10 +46,11 @@ export default function PostForm({ post }) {
             if (file) {
                 const fileId = file.$id;
                 data.featuredImage = fileId;
-                const dbPost = await createPost({ ...data, userId: userData.$id });
+                const dbPost = await createPost({ ...data, userId: userData.$id, username: userData.name });
 
                 if (dbPost) {
                     toast.success("Post created successfully!")
+                    dispatch(addPostState(dbPost))
                     navigate(`/post/${dbPost.$id}`);
                 }
             }
