@@ -16,22 +16,22 @@ const Footer = () => {
           <div className="mb-4 md:mb-0">
             <ul className="flex space-x-4">
               <li>
-                <a href="/about" className="text-slate-400 hover:text-white transition">
+                <a href="https://developeraditya.netlify.app" target="_blank" className="text-slate-400 hover:text-white transition">
                   About
                 </a>
               </li>
               <li>
-                <a href="/contact" className="text-slate-400 hover:text-white transition">
+                <a href="/login" className="text-slate-400 hover:text-white transition">
                   Login
                 </a>
               </li>
               <li>
-                <a href="/privacy" className="text-slate-400 hover:text-white transition">
+                <a href="/signup" className="text-slate-400 hover:text-white transition">
                   Signup
                 </a>
               </li>
               <li>
-                <a href="/privacy" className="text-slate-400 hover:text-white transition">
+                <a href="https://developeraditya.netlify.app" target="_blank" className="text-slate-400 hover:text-white transition">
                   Contact
                 </a>
               </li>
@@ -44,31 +44,31 @@ const Footer = () => {
               href="https://linkedin.com/in/aditya-r-sharma"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-300 hover:text-white transition"
+              className="text-slate-400 hover:text-white transition"
             >
-              <i className="fab fa-linkedin"></i>
+              <i className="fab fa-linkedin text-xl"></i>
             </a>
             <a
-              href="https://twitter.com"
+              href="https://x.com/sharmaadityax"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-300 hover:text-white transition"
+              className="text-slate-400 hover:text-white transition"
             >
-              <i className="fab fa-twitter"></i>
+              <i className="fab fa-twitter text-xl"></i>
             </a>
             <a
               href="https://github.com/AdityaSharmaHub"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-300 hover:text-white transition"
+              className="text-slate-400 hover:text-white transition"
             >
-              <i className="fab fa-github"></i>
+              <i className="fab fa-github text-xl"></i>
             </a>
           </div>
         </div>
 
         {/* Bottom Section */}
-        <div className="text-center text-slate-400 text-sm mt-6">
+        <div className="text-center text-slate-500 text-sm mt-10">
           &copy; {new Date().getFullYear()} BlogX. All rights reserved.
         </div>
       </div>

@@ -1,10 +1,10 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Input, RTE, Select } from "..";
 import { createPost, uploadFile, deleteFile, updatePost, getFilePreview } from "../../services/appwrite/postServices"
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {addPost as addPostState, updatePost as updatePostState, deletePost as deletePostState} from "../../features/posts/postsSlice"
+import { addPost as addPostState } from "../../features/posts/postsSlice"
 import { toast } from "sonner";
 
 export default function PostForm({ post }) {
@@ -24,7 +24,7 @@ export default function PostForm({ post }) {
 
     const submit = async (data) => {
         setIsCreating(true);
-        toast("Started creating post...");
+        toast("Started uploading. Please wait...");
         if (post) {
             const file = data.image[0] ? await uploadFile(data.image[0]) : null;
 
@@ -69,7 +69,7 @@ export default function PostForm({ post }) {
         return "";
     }, []);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const subscription = watch((value, { name }) => {
             if (name === "title") {
                 setValue("slug", slugTransform(value.title), { shouldValidate: true });

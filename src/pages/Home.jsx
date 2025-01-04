@@ -48,7 +48,7 @@ const Home = () => {
             <h1 className='font-semibold text-4xl mb-6 text-center'>Featured Posts</h1>
             <div className='flex flex-wrap'>
                 {posts.map((post) => (
-                    <div key={post.$id} className='p-4 w-1/3'>
+                    <div key={post.$id} className='p-4 w-full sm:w-1/2 md:w-1/3'>
                         <PostCard {...post} />
                     </div>
                 ))}
