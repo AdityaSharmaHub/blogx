@@ -76,7 +76,7 @@ export const updatePost = async (slug, {title, content, featuredImage, status}) 
 
 export const deletePost = async (slug) => {
     try {
-        await databases.deleteDocument(
+        return await databases.deleteDocument(
             databaseId,
             collectionId,
             slug
@@ -104,7 +104,7 @@ export const uploadFile = async (file) => {
 
 export const deleteFile = async (fileId) => {
     try {
-        await storage.deleteFile(
+        return await storage.deleteFile(
             bucketId,
             fileId
         )

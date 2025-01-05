@@ -2,21 +2,28 @@ import React, { useState, useEffect } from 'react';
 import { getPosts } from "../services/appwrite/postServices.js"
 import { Container, PostCard } from '../components'
 import { fetchPostsStart, fetchPostsFailure, fetchPostsSuccess } from "../features/posts/postsSlice"
+import { useDispatch } from 'react-redux';
 
 const Home = () => {
 
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(false)
+    const [postsFromState, setPostsFromState] = useState([])
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        setLoading(true)
+        dispatch(fetchPostsStart());
+        setLoading(true);
         getPosts().then((posts) => {
             if (posts) {
                 setPosts(posts.documents)
+                dispatch(fetchPostsSuccess(posts))
+                setPostsFromState(posts.documents)
             }
             setLoading(false)
         }).catch((err) => {
             setLoading(false)
+            dispatch(fetchPostsFailure(err))
             console.error(err)
         })
     }, [])
@@ -28,6 +35,23 @@ const Home = () => {
                     <h1 className='text-2xl font-medium'>Loading posts...</h1>
                 </div>
             </Container>
+        )
+    }
+
+    if (postsFromState) {
+        return (
+            <div className='w-full py-8'>
+                <Container>
+                    <h1 className='font-semibold text-4xl mb-6 text-center'>Featured Posts</h1>
+                    <div className='flex flex-wrap'>
+                        {postsFromState.map((post) => (
+                            <div key={post.$id} className='p-4 w-full sm:w-1/2 md:w-1/3'>
+                                <PostCard {...post} />
+                            </div>
+                        ))}
+                    </div>
+                </Container>
+    </div>
         )
     }
 
