@@ -50,8 +50,8 @@ export default function PostForm({ post }) {
 
                 if (dbPost) {
                     toast.success("Post created successfully!")
-                    dispatch(addPostState(dbPost))
                     navigate(`/post/${dbPost.$id}`);
+                    dispatch(addPostState(data))
                 }
             }
         }
