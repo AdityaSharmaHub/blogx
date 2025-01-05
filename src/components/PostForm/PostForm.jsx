@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addPost as addPostState } from "../../features/posts/postsSlice"
 import { toast } from "sonner";
 
-export default function PostForm({ post }) {
+export default function PostForm({post}) {
     const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
         defaultValues: {
             title: post?.title || "",
@@ -22,41 +22,94 @@ export default function PostForm({ post }) {
     const [isCreating, setIsCreating] = useState(false);
     const userData = useSelector((state) => state.auth.userData);
 
+    // const submit = async (data) => {
+    //     setIsCreating(true);
+    //     toast("Started uploading. Please wait...");
+    //     if (post) {
+    //         const file = data.image[0] ? await uploadFile(data.image[0]) : null;
+
+    //         if (file) {
+    //             deleteFile(post.featuredImage);
+    //         }
+
+    //         const dbPost = await updatePost(post.$id, {
+    //             ...data,
+    //             featuredImage: file ? file.$id : undefined,
+    //         });
+
+    //         if (dbPost) {
+    //             navigate(`/post/${dbPost.$id}`);
+    //         }
+    //     } else {
+    //         const file = await uploadFile(data.image[0]);
+
+    //         if (file) {
+    //             const fileId = file.$id;
+    //             data.featuredImage = fileId;
+    //             const dbPost = await createPost({ ...data, userId: userData.$id, username: userData.name });
+
+    //             if (dbPost) {
+    //                 toast.success("Post created successfully!")
+    //                 navigate(`/post/${dbPost.$id}`);
+    //                 dispatch(addPostState(data))
+    //             }
+    //         }
+    //     }
+    //     setIsCreating(false)
+    // };
+
     const submit = async (data) => {
         setIsCreating(true);
         toast("Started uploading. Please wait...");
-        if (post) {
-            const file = data.image[0] ? await uploadFile(data.image[0]) : null;
-
-            if (file) {
-                deleteFile(post.featuredImage);
+    
+        try {
+            let file = null;
+            if (data.image && data.image[0]) {
+                file = await uploadFile(data.image[0]);
             }
-
-            const dbPost = await updatePost(post.$id, {
-                ...data,
-                featuredImage: file ? file.$id : undefined,
-            });
-
-            if (dbPost) {
-                navigate(`/post/${dbPost.$id}`);
-            }
-        } else {
-            const file = await uploadFile(data.image[0]);
-
-            if (file) {
-                const fileId = file.$id;
-                data.featuredImage = fileId;
-                const dbPost = await createPost({ ...data, userId: userData.$id, username: userData.name });
-
+    
+            if (post) {
+                if (file && post.featuredImage) {
+                    await deleteFile(post.featuredImage);
+                }
+    
+                const dbPost = await updatePost(post.$id, {
+                    ...data,
+                    featuredImage: file ? file.$id : post.featuredImage,
+                });
+    
                 if (dbPost) {
-                    toast.success("Post created successfully!")
+                    toast.success("Post updated successfully!");
                     navigate(`/post/${dbPost.$id}`);
-                    dispatch(addPostState(data))
+                }
+            } else {
+                if (!file) {
+                    toast.error("Image is required for a new post.");
+                    setIsCreating(false);
+                    return;
+                }
+    
+                const dbPost = await createPost({
+                    ...data,
+                    userId: userData.$id,
+                    username: userData.name,
+                    featuredImage: file.$id,
+                });
+    
+                if (dbPost) {
+                    toast.success("Post created successfully!");
+                    navigate(`/post/${dbPost.$id}`);
+                    dispatch(addPostState(dbPost));
                 }
             }
+        } catch (error) {
+            console.error("Error submitting post:", error);
+            toast.error("An error occurred while submitting the post.");
+        } finally {
+            setIsCreating(false);
         }
-        setIsCreating(false)
     };
+    
 
     const slugTransform = useCallback((value) => {
         if (value && typeof value === "string")

@@ -1,4 +1,4 @@
-import { account, id, query } from "./appwriteClient"
+import { account, id } from "./appwriteClient"
 
 export const createAccount = async ({ name, email, password }) => {
     try {

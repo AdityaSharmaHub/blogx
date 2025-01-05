@@ -13,9 +13,11 @@ const EditPost = () => {
       if (slug) {
         getPost(slug).then((post) => {
             if (post) {
-                setPost(post)
+              setPost(post)
             }
-        })
+        }).catch((error) => (
+          console.log("Error fetching post in EditPost component", error)
+        ))
       }
       else {
         navigate('/')
