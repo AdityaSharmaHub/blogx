@@ -67,7 +67,7 @@ export default function Post() {
   return post ? (
     <div className="py-8">
       <Container>
-        <div className="w-full max-w-4xl flex justify-center mb-4 relative border border-slate-700 shadow-2xl shadow-slate-900 rounded-xl p-2">
+        <div className="w-full max-w-4xl mx-auto flex justify-center mb-4 relative border border-slate-700 shadow-2xl shadow-slate-900 rounded-xl p-2">
           <img
             src={getFilePreview(post.featuredImage)}
             alt={post.title}
@@ -79,14 +79,14 @@ export default function Post() {
               <Link to={`/edit-post/${post.$id}`}>
                 <Button
                   bgColor="bg-green-500"
-                  className="mr-3 hover:scale-105 hover:bg-green-600 transition-all duration-200 ease-linear"
+                  className="hover:scale-95 hover:bg-green-700 mr-3 transition-all duration-200 ease-linear"
                 >
                   Edit
                 </Button>
               </Link>
               <Button
                 bgColor="bg-red-500"
-                className="hover:scale-105 hover:bg-red-600 transition-all duration-200 ease-linear"
+                className="hover:scale-95 hover:bg-red-600 transition-all duration-200 ease-linear"
                 onClick={handleDeletePost}
               >
                 {isDeleting ? "Deleting..." : "Delete"}
@@ -94,10 +94,10 @@ export default function Post() {
             </div>
           )}
         </div>
-        <div className="w-full my-10">
+        <div className="my-10 w-full max-w-4xl mx-auto border-b border-b-slate-800 pb-6">
           <h1 className="text-2xl md:text-4xl font-bold">{post.title}</h1>
         </div>
-        <div className="browser-css leading-loose">{parse(post.content)}</div>
+        <div className="leading-loose w-full max-w-4xl mx-auto">{parse(post.content)}</div>
       </Container>
     </div>
   ) : null;

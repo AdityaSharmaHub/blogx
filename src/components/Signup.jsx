@@ -13,7 +13,7 @@ const Signup = () => {
     const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, formState: {errors} } = useForm()
 
     const signup = async(data) => {
         setLoading(true)
@@ -43,21 +43,54 @@ const Signup = () => {
             {error && <p className='text-red-500 text-center'>{error}</p>}
             <form onSubmit={handleSubmit(signup)}>
                 <div className="mb-4">
-                    <Input label="Name" placeholder="Enter your name" {...register("name", { required: true })} />
+                    <Input 
+                    label="Name" 
+                    placeholder="Enter your name" 
+                    {...register("name", { 
+                        required: "Name is required", 
+                        minLength: { value: 3, message: "Name must be at least 3 characters" },
+                    })} 
+                    />
+                    {errors.name && (
+                        <p className="text-red-600 mt-2">{errors.name.message}</p>
+                    )}
                 </div>
                 <div className="mb-4">
                     <Input label="Email" placeholder="Enter your email" {...register("email", {
-                            required: true,
-                            validate: {
-                                matchPatern: (value) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
-                                "Email address must be a valid address",
-                            }
-                        })}/>
+                        required: "Email is required",
+                        validate: {
+                            matchPatern: (value) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
+                            "Email address must be a valid address",
+                        }
+                    })}/>
+                    {errors.email && (
+                        <p className="text-red-600 mt-2">{errors.email.message}</p>
+                    )}
                 </div>
                 <div className="mb-6">
-                    <Input label="Password" placeholder="Enter your password" type="password" {...register("password", { required: true })} />
+                    <Input 
+                    label="Password" 
+                    placeholder="Enter your password" 
+                    type="password" {...register("password", { 
+                        required: "Password is required",
+                        minLength: { value: 8, message: "Password must be at least 8 characters" },
+                    })} 
+                    />
+                    {errors.password && (
+                        <p className="text-red-600 mt-2">{errors.password.message}</p>
+                    )}
                 </div>
-                <Button type='submit' className='w-full'>{loading ? "Signing up..." : "Sign up"}</Button>
+                <Button type='submit' className='w-full'>
+                    {
+                        loading ? <div className="flex items-center justify-center">
+                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Signing up...
+                    </div> : "Sign up"
+                    }
+                </Button>
             </form>
             <p className='text-center text-sm mt-4 text-slate-400'>Already have an account? <Link to="/login" className='text-indigo-500 hover:underline'>Login</Link></p>
         </div>

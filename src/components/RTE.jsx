@@ -6,9 +6,12 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
   return (
     <div className="w-full">
       {label && (
-        <label className="inline-block mb-1 pl-1">
-          {label}
-        </label>
+        <div className="flex justify-between">
+          <label className="inline-block mb-1 pl-1">
+            {label}
+          </label>
+          <p className="text-slate-400 mr-2">(Max. 3000 characters)</p>
+        </div>
       )}
 
       <Controller
@@ -48,9 +51,9 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
                 "anchor",
               ],
               toolbar:
-                "undo redo | blocks | image | bold italic forecolor | alignleft aligncenter bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help",
+                "undo redo | blocks | image | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat",
               content_style:
-                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                "body { font-family:Helvetica,Arial,sans-serif; font-size:16px }",
             }}
             onEditorChange={onChange}
           />
