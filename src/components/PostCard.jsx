@@ -36,7 +36,7 @@ const PostCard = ({$id, title, featuredImage, content, username}) => {
               <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
               <circle cx="12" cy="7" r="4" />
             </svg>
-            <p className='text-slate-400 text-sm'>{username}</p>
+            <p className='text-slate-400 text-sm truncate max-w-20'>{username}</p>
           </div>
           <div className='mx-2'>
             <p className='text-indigo-500 hover:text-indigo-400'>Read more...</p>

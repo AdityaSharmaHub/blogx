@@ -47,7 +47,7 @@ const AllPosts = () => {
     return (
       <div className="w-full py-8">
         <Container>
-        <h1 className='font-semibold text-4xl mb-6 text-center'>All Posts</h1>
+        <h1 className='font-semibold text-3xl md:text-4xl mb-6 text-center'>All Posts</h1>
           <div className="flex flex-wrap">
             {postsFromState.map((post) => (
               <div key={post.$id} className="p-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
@@ -73,7 +73,7 @@ const AllPosts = () => {
   return (
     <div className="w-full py-8">
       <Container>
-      <h1 className='font-semibold text-4xl mb-6 text-center'>All Posts</h1>
+      <h1 className='font-semibold text-3xl md:text-4xl mb-6 text-center'>All Posts</h1>
         <div className="flex flex-wrap">
           {posts.map((post) => (
             <div key={post.$id} className="p-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/4">

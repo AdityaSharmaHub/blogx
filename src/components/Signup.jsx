@@ -40,7 +40,7 @@ const Signup = () => {
         <div className='bg-slate-900 px-6 py-8 border border-slate-800 rounded-xl'>
             <h2 className="font-medium text-2xl mb-1 text-center">Get started</h2>
             <p className='text-center text-slate-400 mb-6'>Sign up to create an account</p>
-            {error && <p className='text-red-500 text-center'>{error}</p>}
+            {error && <p className="text-red-400 text-sm mb-4 text-center bg-red-500/10 px-3 py-1.5 rounded-lg inline-block">{error}</p>}
             <form onSubmit={handleSubmit(signup)}>
                 <div className="mb-4">
                     <Input 
@@ -52,7 +52,7 @@ const Signup = () => {
                     })} 
                     />
                     {errors.name && (
-                        <p className="text-red-600 mt-2">{errors.name.message}</p>
+                        <p className="text-red-400 text-sm mt-2 bg-red-500/10 px-3 py-1.5 rounded-lg inline-block">{errors.name.message}</p>
                     )}
                 </div>
                 <div className="mb-4">
@@ -64,7 +64,7 @@ const Signup = () => {
                         }
                     })}/>
                     {errors.email && (
-                        <p className="text-red-600 mt-2">{errors.email.message}</p>
+                        <p className="text-red-400 text-sm mt-2 bg-red-500/10 px-3 py-1.5 rounded-lg inline-block">{errors.email.message}</p>
                     )}
                 </div>
                 <div className="mb-6">
@@ -77,7 +77,7 @@ const Signup = () => {
                     })} 
                     />
                     {errors.password && (
-                        <p className="text-red-600 mt-2">{errors.password.message}</p>
+                        <p className="text-red-400 text-sm mt-2 bg-red-500/10 px-3 py-1.5 rounded-lg inline-block">{errors.password.message}</p>
                     )}
                 </div>
                 <Button type='submit' className='w-full'>

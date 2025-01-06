@@ -10,7 +10,7 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
           <label className="inline-block mb-1 pl-1">
             {label}
           </label>
-          <p className="text-slate-400 mr-2">(Max. 3000 characters)</p>
+          <p className="text-slate-400 mr-2 text-sm">(Max. 3000 characters)</p>
         </div>
       )}
 

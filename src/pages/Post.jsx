@@ -97,7 +97,11 @@ export default function Post() {
         <div className="my-10 w-full max-w-4xl mx-auto border-b border-b-slate-800 pb-6">
           <h1 className="text-2xl md:text-4xl font-bold">{post.title}</h1>
         </div>
-        <div className="leading-loose w-full max-w-4xl mx-auto">{parse(post.content)}</div>
+        <div className="w-full max-w-4xl mx-auto text-base md:text-lg text-slate-200">{parse(post.content)}</div>
+        <div className="mt-14 flex items-center gap-2">
+          <i className="fa fa-user h-8 w-8 flex items-center justify-center text-slate-300 bg-slate-800 p-2 rounded-full"></i>
+          <p className="text-base text-slate-300">Written By {post.username}</p>
+        </div>
       </Container>
     </div>
   ) : null;

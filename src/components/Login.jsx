@@ -57,7 +57,7 @@ const Login = () => {
         <div className='bg-slate-900 px-6 py-8 border border-slate-800 rounded-xl'>
             <h2 className="font-medium text-2xl mb-1 text-center">Welcome back</h2>
             <p className='text-center text-slate-400 mb-6'>Login to access your account</p>
-            {error && <p className="text-red-600 mt-4 mb-8 text-center">{error}</p>}
+            {error && <p className="text-red-400 text-sm mb-4 text-center bg-red-500/10 px-3 py-1.5 rounded-lg inline-block">{error}</p>}
             <form onSubmit={handleSubmit(login)}>
                 <div className="mb-4">
                     <Input 
@@ -73,7 +73,7 @@ const Login = () => {
                     })} 
                     />
                     {errors.email && (
-                        <p className="text-red-600 mt-2">{errors.email.message}</p>
+                        <p className="text-red-400 text-sm mt-2 bg-red-500/10 px-3 py-1.5 rounded-lg inline-block">{errors.email.message}</p>
                     )}
                 </div>
                 <div className="mb-6">
@@ -86,7 +86,7 @@ const Login = () => {
                     })} 
                     />
                     {errors.password && (
-                        <p className="text-red-600 mt-2">{errors.password.message}</p>
+                        <p className="text-red-400 text-sm mt-2 bg-red-500/10 px-3 py-1.5 rounded-lg inline-block">{errors.password.message}</p>
                     )}
                 </div>
                 <Button type='submit' className='w-full'>
@@ -101,7 +101,7 @@ const Login = () => {
                         </div> : "Login"
                     }
                 </Button>
-                <Button className='w-full bg-slate-800 mt-4 hover:bg-slate-700' textColor='text-slate-300 hover:text-slate-100' onClick={loginWithTestUser}>
+                <Button className='w-full bg-slate-800 mt-4 hover:bg-slate-700' textColor='text-slate-400 hover:text-slate-100' onClick={loginWithTestUser}>
                     Login with Test Account
                 </Button>
             </form>

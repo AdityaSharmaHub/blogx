@@ -67,13 +67,13 @@ const Header = () => {
       <div className='flex gap-2'>
         {authStatus && (
           <div className='flex gap-2 items-center'>
-            <p className='py-2 px-4 text-sm rounded-lg bg-slate-800 text-slate-300 hidden md:flex gap-1 items-center font-medium'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>{userData?.name}</p>
-            <p onClick={logoutHandler} className="bg-indigo-600 text-white py-2 px-4 cursor-pointer text-sm rounded-lg hover:bg-indigo-700 transition duration-100 ease-in">Logout</p>
+            <p className='py-2 px-4 text-sm rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 hidden md:flex gap-1 items-center font-medium'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>{userData?.name}</p>
+            <p onClick={logoutHandler} className="bg-indigo-600 text-white py-1 px-2 md:py-2 md:px-4 cursor-pointer text-sm rounded-lg hover:bg-indigo-700 transition duration-100 ease-in">Logout</p>
           </div>
         )}
         {!authStatus && (
           <div className='flex gap-2'>
-            <Link to="login" className='bg-indigo-600 text-white py-2 px-4 text-sm rounded-lg hover:bg-indigo-700'>Login</Link>
+            <Link to="login" className='bg-indigo-600 text-white py-1.5 px-2.5 md:py-2 md:px-4 text-xs md:text-sm rounded-lg hover:bg-indigo-700'>Login</Link>
             <Link to="signup" className='bg-indigo-950 text-white py-2 px-4 text-sm rounded-lg hover:bg-indigo-900 hidden md:flex'>Signup</Link>
           </div>
         )}
