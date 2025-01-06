@@ -3,8 +3,6 @@ import { getPosts } from "../services/appwrite/postServices.js"
 import { Container, PostCard } from '../components'
 import { fetchPostsStart, fetchPostsFailure, fetchPostsSuccess } from "../features/posts/postsSlice"
 import { useDispatch } from 'react-redux';
-import { login } from "../features/auth/authSlice.js"
-import { getCurrentUser } from "../services/appwrite/authServices.js"
 
 const Home = () => {
 
@@ -12,20 +10,7 @@ const Home = () => {
     const [loading, setLoading] = useState(false)
     const [postsFromState, setPostsFromState] = useState([])
     const dispatch = useDispatch()
-
-    useEffect(() => {
-      getCurrentUser()
-      .then((user) => {
-        if (user) {
-            dispatch(login(user))
-        }
-      })
-      .catch((error) => (
-        console.log(error)
-      ))
-    }, [])
     
-
     useEffect(() => {
         dispatch(fetchPostsStart());
         setLoading(true);
