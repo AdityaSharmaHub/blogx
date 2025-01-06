@@ -146,7 +146,7 @@ export default function PostForm({ post }) {
                         label="Slug :"
                         placeholder="Slug"
                         className="mb-4"
-                        {...register("slug", { required: true })}
+                        {...register("slug", { required: true, disabled: true })}
                         onInput={(e) => {
                             setValue("slug", slugTransform(e.currentTarget.value), {
                                 shouldValidate: true,
