@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import { Header, Footer } from "./components/index"
 import {Toaster} from "sonner"
-import { login } from "./features/auth/authSlice"
+import { login, logout } from "./features/auth/authSlice"
 import { getCurrentUser } from "./services/appwrite/authServices"
 import { useDispatch } from 'react-redux'
 
@@ -11,12 +11,15 @@ const Layout = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getCurrentUser().then((user) => {
-      if (user) {
-        dispatch(login(user))
+    getCurrentUser().then((userData) => {
+      if (userData) {
+        dispatch(login(userData))
+      }
+      else {
+        dispatch(logout())
       }
     }).catch((error) => (
-      console.log(error)
+      console.error("Error during fetching userData session in Layout.js", error)
     ))
   }, [])
   

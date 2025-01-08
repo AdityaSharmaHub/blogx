@@ -19,20 +19,22 @@ const postsSlice = createSlice({
             state.posts = action.payload;
         },
         fetchPostsFailure: (state, action) => {
-            state.loading = false;
+            state.loading = false;      
             state.error = action.payload;
         },
         addPost: (state, action) => {
-            state.posts.push(action.payload);
+            state.loading = false;
+            state.posts.push(action.payload.post);
         },
         updatePost: (state, action) => {
-            const index = state.posts.findIndex(post => post.id === action.payload.id);
-            if (index !== -1) {
-                state.posts[index] = action.payload;
-            }
+            state.loading = false;
+            state.posts = state.posts.map((post) =>
+				post.$id === action.payload.post.$id ? action.payload.post : post
+			);
         },
         deletePost: (state, action) => {
-            state.posts = state.posts.filter(post => post.id !== action.payload);
+            state.loading = false
+            state.posts = state.posts.filter((post) => post.$id !== action.payload.postId);
         }
     }
 });

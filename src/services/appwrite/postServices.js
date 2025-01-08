@@ -11,9 +11,10 @@ export const createPost = async ({title, slug, content, featuredImage, status, u
         return await databases.createDocument(
             databaseId,
             collectionId,
-            slug,
+            id.unique(),
             {
                 title,
+                slug,
                 content,
                 featuredImage,
                 status,
@@ -44,10 +45,12 @@ export const getPosts = async () => {
 
 export const getPost = async (slug) => {
     try {
-        return await databases.getDocument(
+        return await databases.listDocuments(
             databaseId,
             collectionId,
-            slug
+            [
+                query.equal("slug", slug)
+            ]
         )
     } catch (error) {
         console.error("Appwrite Service Error :: getPost :: error", error)
@@ -55,14 +58,15 @@ export const getPost = async (slug) => {
     }
 }
 
-export const updatePost = async (slug, {title, content, featuredImage, status}) => {
+export const updatePost = async (documentId, {title, slug, content, featuredImage, status}) => {
     try {
         return await databases.updateDocument(
             databaseId,
             collectionId,
-            slug,
+            documentId,
             {
                 title,
+                slug,
                 content,
                 featuredImage,
                 status
@@ -74,12 +78,12 @@ export const updatePost = async (slug, {title, content, featuredImage, status}) 
     }
 }
 
-export const deletePost = async (slug) => {
+export const deletePost = async (fileId) => {
     try {
         return await databases.deleteDocument(
             databaseId,
             collectionId,
-            slug
+            fileId
         )
     } catch (error) {
         console.error("Appwrite Service Error :: deletePost :: error", error)

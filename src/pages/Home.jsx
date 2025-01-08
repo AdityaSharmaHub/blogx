@@ -2,36 +2,51 @@ import React, { useState, useEffect } from 'react';
 import { getPosts } from "../services/appwrite/postServices.js"
 import { Container, PostCard } from '../components'
 import { fetchPostsStart, fetchPostsFailure, fetchPostsSuccess } from "../features/posts/postsSlice"
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'sonner';
 
 const Home = () => {
 
-    const [posts, setPosts] = useState([])
+    const posts = useSelector((state) => state.posts.posts)
     const [loading, setLoading] = useState(false)
-    const [postsFromState, setPostsFromState] = useState([])
     const dispatch = useDispatch()
     
     useEffect(() => {
-        dispatch(fetchPostsStart());
         setLoading(true);
-        getPosts().then((posts) => {
-            if (posts) {
-                setPosts(posts.documents)
-                dispatch(fetchPostsSuccess(posts))
-                setPostsFromState(posts.documents)
+
+        async function fetchPosts() {
+            try {
+                // fetch the posts from state if present
+                if (posts.length > 0) {
+                    setLoading(false);
+                    return;
+                }
+                
+                // if not, get the posts from the server
+                dispatch(fetchPostsStart());
+
+                const response = await getPosts();
+                if (response) {
+                    const fetchedPosts = response.documents;
+                    dispatch(fetchPostsSuccess(fetchedPosts));
+                    setLoading(false);
+                }
+            } catch (error) {
+                dispatch(fetchPostsFailure(error.message))
+                console.error(error)
+                toast.error(`Error in fetching posts :: Home.js :: ${error.message}`)
+            } finally {
+                setLoading(false)
             }
-            setLoading(false)
-        }).catch((err) => {
-            setLoading(false)
-            dispatch(fetchPostsFailure(err))
-            console.error(err)
-        })
+        }
+
+        fetchPosts();
+    
     }, [])
 
-    if (loading) {
-        return (
-            <Container>
-                <div className="py-40 text-center">
+    return (
+        <Container>
+            {loading ? (<div className="py-40 text-center">
                     <h1 className='text-2xl font-medium'>
                         <div className="flex items-center justify-center">
                             <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -41,53 +56,24 @@ const Home = () => {
                             Loading posts...
                         </div>
                     </h1>
-                </div>
-            </Container>
-        )
-    }
-
-    if (postsFromState) {
-        return (
-            <div className='w-full py-8'>
-                <Container>
-                    <h1 className='font-semibold text-3xl md:text-4xl mb-6 text-center'>Featured Posts</h1>
-                    <div className='flex flex-wrap'>
-                        {postsFromState.map((post) => (
-                            <div key={post.$id} className='p-4 w-full sm:w-1/2 md:w-1/3'>
-                                <PostCard {...post} />
-                            </div>
-                        ))}
+                </div>) : 
+                (
+                    <div className='flex flex-col items-center my-6'>
+                        <h1 className='font-semibold text-3xl md:text-4xl mb-6'>{posts && posts.length > 0 ? "Featured Posts" : "No Posts Found!"}</h1>
+                        <div className='flex w-full flex-wrap'>
+                            {posts && posts.length > 0 && posts !== null ? (
+                                posts.map((post) => (
+                                    <div key={post.$id} className='p-4 w-full sm:w-1/2 md:w-1/3'>
+                                        <PostCard {...post} />
+                                    </div>
+                                ))
+                            ) : null}
+                        </div>
                     </div>
-                </Container>
-    </div>
-        )
-    }
-
-    if (posts.length === 0) {
-        return (
-            <Container>
-                <div className="py-40 text-center">
-                    <h1 className='text-2xl font-medium'>No posts found</h1>
-                </div>
-            </Container>
-        )
-    } 
-    
-
-  return (
-    <div className='w-full py-8'>
-        <Container>
-            <h1 className='font-semibold text-3xl md:text-4xl mb-6 text-center'>Featured Posts</h1>
-            <div className='flex flex-wrap'>
-                {posts.map((post) => (
-                    <div key={post.$id} className='p-4 w-full sm:w-1/2 md:w-1/3'>
-                        <PostCard {...post} />
-                    </div>
-                ))}
-            </div>
+                )
+            }
         </Container>
-    </div>
-  )
+    )
 }
 
 export default Home

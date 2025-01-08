@@ -52,7 +52,7 @@ const Header = () => {
 
   return (
     <header className="border-b border-slate-800 bg-slate-900 py-3 md:py-4 px-4 md:px-20 flex items-center justify-between">
-      <Link to="/" className="font-bold text-lg md:text-2xl text-slate-100 md:mr-20">BlogX<span className='text-indigo-500'>.</span></Link>
+      <Link to="/" className="font-bold text-lg md:text-2xl text-slate-100 md:mr-20">Blog<span className='text-indigo-500'>X</span></Link>
       <nav className="flex gap-4 text-sm md:text-base md:gap-8">
         {navItems.map((navitem) => navitem.active ? (
           <NavLink 

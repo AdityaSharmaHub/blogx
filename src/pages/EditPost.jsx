@@ -13,7 +13,7 @@ const EditPost = () => {
       if (slug) {
         getPost(slug).then((post) => {
             if (post) {
-              setPost(post)
+              setPost(post.documents[0])
             }
         }).catch((error) => (
           console.log("Error fetching post in EditPost component", error)
