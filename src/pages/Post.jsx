@@ -81,6 +81,7 @@ export default function Post() {
     <div className="py-8">
       {loading ? <h1 className="text-2xl font-semibold">Loading post...</h1> : (
         <Container>
+        <Link to="/" className="md:hidden mb-6 bg-slate-900 rounded-xl py-2 px-3 text-xs text-slate-300 inline-flex">Back to home</Link>
         <div className="w-full max-w-4xl mx-auto flex justify-center mb-4 relative border border-slate-700 shadow-2xl shadow-slate-800 rounded-xl p-3">
           <img
             src={getFilePreview(post.featuredImage)}
