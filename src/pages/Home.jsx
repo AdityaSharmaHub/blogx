@@ -4,12 +4,17 @@ import { Container, PostCard } from '../components'
 import { fetchPostsStart, fetchPostsFailure, fetchPostsSuccess } from "../features/posts/postsSlice"
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'sonner';
+import EmblaCarousel from "../components/Carousel/EmblaCarousel.jsx"
+import '../components/Carousel/embla.css'
 
 const Home = () => {
 
     const posts = useSelector((state) => state.posts.posts)
     const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
+    const OPTIONS = { loop: true }
+    const SLIDE_COUNT = 5
+    const SLIDES = Array.from(Array(SLIDE_COUNT).keys())
     
     useEffect(() => {
         setLoading(true);
@@ -44,6 +49,8 @@ const Home = () => {
     
     }, [])
 
+    const postImages = posts.map((post) => post.featuredImage);
+
     return (
         <Container>
             {loading ? (<div className="py-40 text-center">
@@ -59,7 +66,8 @@ const Home = () => {
                 </div>) : 
                 (
                     <div className='flex flex-col items-center my-6'>
-                        <h1 className='font-semibold text-3xl md:text-4xl mb-6'>{posts && posts.length > 0 ? "Featured Posts" : "No Posts Found!"}</h1>
+                        <EmblaCarousel slides={posts} options={OPTIONS} />
+                        <h1 className='font-semibold text-3xl md:text-4xl mt-10 mb-6'>{posts && posts.length > 0 ? "Featured Posts" : "No Posts Found!"}</h1>
                         <div className='flex w-full flex-wrap'>
                             {posts && posts.length > 0 && posts !== null ? (
                                 posts.map((post) => (
