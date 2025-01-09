@@ -60,8 +60,7 @@ const AllPosts = () => {
                 (
                     <div className='flex flex-col items-center my-6'>
                         <h1 className='font-semibold text-3xl md:text-4xl mb-4'>{posts && posts.length > 0 ? "All Posts" : "No Posts Found!"}</h1>
-                        <div className='flex w-full'>
-
+                        <div className='flex flex-wrap w-full'>
                         {posts && posts.length > 0 ? (
                             posts.map((post) => (
                                 <div key={post.$id} className='p-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/4'>
