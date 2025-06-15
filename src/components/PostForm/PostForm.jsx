@@ -6,7 +6,7 @@ import {
   uploadFile,
   deleteFile,
   updatePost,
-  getFilePreview,
+  getFileView,
 } from "../../services/appwrite/postServices";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -182,7 +182,7 @@ export default function PostForm({ post }) {
           {post?.featuredImage && (
             <div className="w-full mb-4">
               <img
-                src={getFilePreview(post.featuredImage)}
+                src={getFileView(post.featuredImage)}
                 alt={post.title || "null"}
                 className="rounded-lg"
               />
