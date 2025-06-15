@@ -124,3 +124,10 @@ export function getFilePreview (fileId) {
         fileId
     )
 }
+
+export function getFileView (fileId) {
+    return storage.getFileView(
+        bucketId,
+        fileId
+    )
+}

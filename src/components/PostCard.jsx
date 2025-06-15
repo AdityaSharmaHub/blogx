@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { getFilePreview } from "../services/appwrite/postServices"
+import { getFileView } from "../services/appwrite/postServices"
 import { Link } from 'react-router-dom'
 import parse from "html-react-parser";
 
@@ -9,7 +8,7 @@ const PostCard = ({title, slug, featuredImage, content, username}) => {
       <Link to={`/post/${slug}`}>
         <div className='relative w-full pt-[56.25%] overflow-hidden rounded-lg group'>
           <img
-            src={getFilePreview(featuredImage)}
+            src={getFileView(featuredImage)}
             alt={title}
             className='absolute inset-0 w-full h-full object-cover'
             loading='lazy'
